@@ -1,0 +1,11 @@
+[33mcommit 3f7f30a1d396ca133b3464fe20a10f5f1a577060[m[33m ([m[1;36mHEAD -> [m[1;32macevedo[m[33m, [m[1;31morigin/acevedo[m[33m)[m
+Author: Miguel Acevedo <82989924+macevedoponce@users.noreply.github.com>
+Date:   Thu Jul 20 17:29:37 2023 -0500
+
+    generacion de migraciones para bd
+
+[33mcommit c92d44eb0c52f37e0463f7b51bff4c7046bbeacb[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Miguel Acevedo <82989924+macevedoponce@users.noreply.github.com>
+Date:   Thu Jul 20 15:31:22 2023 -0500
+
+    Primer commit: Agregar archivos iniciales dle proyecto
