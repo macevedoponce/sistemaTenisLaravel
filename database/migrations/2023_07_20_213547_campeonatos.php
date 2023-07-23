@@ -21,7 +21,7 @@ return new class extends Migration
             $table->bigInteger('tipo_campeonato_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('tipo_campeonato_id')->references('id')->on('tipo_campeonatos')->onDelete("cascade");
+            $table->foreign('tipo_campeonato_id')->references('id')->on('tipocampeonatos')->onDelete("cascade");
         });
     }
 

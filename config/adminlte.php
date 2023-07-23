@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Sistema Tenis Administrador',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Sistema Tenis</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -309,50 +309,43 @@ return [
         ],
         ['header' => ''],
         [
-            'text' => 'Tipo de Campeonatos',
-            'url'  => 'tipoCampeonato',
+            'text' => 'Partidos',
+            'url'  => 'partidos',
             'icon' => 'fas fa-solid fa-bolt',
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
+            'text' => 'Resultados',
+            'url'  => 'resultados',
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
-            'text'    => 'multilevel',
+            'text' => 'Inscripción',
+            'url'  => 'inscritos',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
+            'text'    => 'configurar sistema',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Genero',
+                    'url'  => 'generos',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text' => 'Tipo de Campeonato',
+                    'url'  => 'tipocampeonatos',
                 ],
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Campeonatos',
+                    'url'  => 'campeonatos',
+                ],
+                [
+                    'text' => 'Categorias',
+                    'url'  => 'categorias',
+                ],
+                [
+                    'text' => 'Participantes',
+                    'url'  => 'participantes',
                 ],
             ],
         ],

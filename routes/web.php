@@ -30,11 +30,12 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::resource('tipoCampeonato', App\Http\Controllers\TipoCampeonatoController::class);
+Route::resource('tipocampeonatos', App\Http\Controllers\TipocampeonatoController::class);
 Route::resource('campeonatos', App\Http\Controllers\CampeonatoController::class);
 Route::resource('categorias', App\Http\Controllers\CategoriaController::class);
 Route::resource('generos', App\Http\Controllers\GeneroController::class);
 Route::resource('participantes', App\Http\Controllers\ParticipanteController::class);
+Route::resource('inscritos', App\Http\Controllers\InscritoController::class);
 Route::resource('partidos', App\Http\Controllers\PartidoController::class);
 Route::resource('resultados', App\Http\Controllers\ResultadoController::class);
 
