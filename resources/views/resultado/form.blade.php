@@ -21,12 +21,13 @@
 
             <div class="form-group col-md-6">
                 {{ Form::label('ganador_id') }}
-                {{ Form::select('ganador_id', $inscritos, $resultado->ganador_id, ['class' => 'form-control' . ($errors->has('ganador_id') ? ' is-invalid' : ''), 'placeholder' => 'Ganador Id', 'readonly']) }}
+                {{ Form::select('ganador_id', $inscritos, $resultado->ganador_id, ['class' => 'form-control' . ($errors->has('ganador_id') ? ' is-invalid' : ''), 'placeholder' => 'Ganador Id', 'readonly', 'disabled']) }}
                 {!! $errors->first('ganador_id', '<div class="invalid-feedback">:message</div>') !!}
             </div>
+
             <div class="form-group col-md-6">
                 {{ Form::label('perdedor_id') }}
-                {{ Form::select('perdedor_id', $inscritos, $resultado->perdedor_id, ['class' => 'form-control' . ($errors->has('perdedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Perdedor Id', 'readonly']) }}
+                {{ Form::select('perdedor_id', $inscritos, $resultado->perdedor_id, ['class' => 'form-control' . ($errors->has('perdedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Perdedor Id', 'readonly', 'disabled']) }}
                 {!! $errors->first('perdedor_id', '<div class="invalid-feedback">:message</div>') !!}
             </div>
 
@@ -46,6 +47,15 @@
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
     </div>
 </div>
+
+<style>
+    /* Estilo para resaltar la fila del jugador ganador */
+    .ganador {
+        background-color: #28a745; /* Color success de Bootstrap */
+        font-weight: bold; /* Texto en negrita para resaltar más */
+        color: white; /* Color del texto en blanco */
+    }
+</style>
 
 <script>
     const setsJugadosSelect = document.getElementById('sets_jugados');
@@ -125,36 +135,16 @@
             }
         }
 
-        let ganadorId, ganadorNombre, perdedorId, perdedorNombre;
-
-        if (juegosGanadosJugador1 > juegosGanadosJugador2) {
-            ganadorId = jugador1Id;
-            ganadorNombre = jugador1Nombre;
-            perdedorId = jugador2Id;
-            perdedorNombre = jugador2Nombre;
-        } else if (juegosGanadosJugador2 > juegosGanadosJugador1) {
-            ganadorId = jugador2Id;
-            ganadorNombre = jugador2Nombre;
-            perdedorId = jugador1Id;
-            perdedorNombre = jugador1Nombre;
-        } else {
-            // En caso de empate en juegos ganados, se considera ganador al jugador con el ID más bajo
-            ganadorId = Math.min(jugador1Id, jugador2Id);
-            ganadorNombre = (ganadorId === jugador1Id) ? jugador1Nombre : jugador2Nombre;
-            perdedorId = Math.max(jugador1Id, jugador2Id);
-            perdedorNombre = (perdedorId === jugador1Id) ? jugador1Nombre : jugador2Nombre;
-        }
-
         const jugadores = [
             {
-                id: ganadorId,
-                nombre: ganadorNombre,
+                id: jugador1Id,
+                nombre: jugador1Nombre,
                 juegosGanados: juegosGanadosJugador1,
                 estado: (juegosGanadosJugador1 > juegosGanadosJugador2) ? 'ganador' : 'perdedor'
             },
             {
-                id: perdedorId,
-                nombre: perdedorNombre,
+                id: jugador2Id,
+                nombre: jugador2Nombre,
                 juegosGanados: juegosGanadosJugador2,
                 estado: (juegosGanadosJugador2 > juegosGanadosJugador1) ? 'ganador' : 'perdedor'
             }
@@ -164,67 +154,67 @@
     }
 
     function generarTablaResultadoPartido(setsJugados) {
-        const {
-            ganadorId,
-            ganadorNombre,
-            perdedorId,
-            perdedorNombre,
-            juegosGanadosJugador1,
-            juegosGanadosJugador2
-        } = calcularResultadoPartido(setsJugados);
+    const jugadores = calcularResultadoPartido(setsJugados);
+    const ganador = jugadores.find(jugador => jugador.estado === 'ganador');
+    const perdedor = jugadores.find(jugador => jugador.estado === 'perdedor');
 
-        const table = document.createElement('table');
-        table.className = 'table table-bordered';
+    const table = document.createElement('table');
+    table.className = 'table table-bordered';
 
-        const headerRow = table.insertRow();
-        const headers = ['ID Jugador', 'Nombre Jugador', 'Juegos Ganados', 'Estado'];
-        headers.forEach(headerText => {
-            const headerCell = document.createElement('th');
-            headerCell.textContent = headerText;
-            headerRow.appendChild(headerCell);
-        });
+    const headerRow = table.insertRow();
+    const headers = ['ID Jugador', 'Nombre Jugador', 'Juegos Ganados', 'Estado'];
+    headers.forEach(headerText => {
+        const headerCell = document.createElement('th');
+        headerCell.textContent = headerText;
+        headerRow.appendChild(headerCell);
+    });
 
-        const row1 = table.insertRow();
-        row1.insertCell().textContent = ganadorId;
-        row1.insertCell().textContent = ganadorNombre;
-        row1.insertCell().textContent = juegosGanadosJugador1;
-        row1.insertCell().textContent = 'Ganador';
+    const row1 = table.insertRow();
+    row1.insertCell().textContent = ganador.id;
+    row1.insertCell().textContent = ganador.nombre;
+    row1.insertCell().textContent = ganador.juegosGanados;
+    row1.insertCell().textContent = 'Ganador';
+    row1.classList.add('ganador'); // Agregar la clase 'ganador' a la fila
 
-        const row2 = table.insertRow();
-        row2.insertCell().textContent = perdedorId;
-        row2.insertCell().textContent = perdedorNombre;
-        row2.insertCell().textContent = juegosGanadosJugador2;
-        row2.insertCell().textContent = 'Perdedor';
+    const row2 = table.insertRow();
+    row2.insertCell().textContent = perdedor.id;
+    row2.insertCell().textContent = perdedor.nombre;
+    row2.insertCell().textContent = perdedor.juegosGanados;
+    row2.insertCell().textContent = 'Perdedor';
 
-        resultadoPartidoContainer.innerHTML = '';
-        resultadoPartidoContainer.appendChild(table);
-    }
+    resultadoPartidoContainer.innerHTML = '';
+    resultadoPartidoContainer.appendChild(table);
+}
 
-    function actualizarResultadoPartido(setsJugados) {
-        const jugadores = calcularResultadoPartido(setsJugados);
+function actualizarResultadoPartido(setsJugados) {
+    const jugadores = calcularResultadoPartido(setsJugados);
 
-        const table = document.createElement('table');
-        table.className = 'table table-bordered';
+    const table = document.createElement('table');
+    table.className = 'table table-bordered';
 
-        const headerRow = table.insertRow();
-        const headers = ['ID Jugador', 'Nombre Jugador', 'Juegos Ganados', 'Estado'];
-        headers.forEach(headerText => {
-            const headerCell = document.createElement('th');
-            headerCell.textContent = headerText;
-            headerRow.appendChild(headerCell);
-        });
+    const headerRow = table.insertRow();
+    const headers = ['ID Jugador', 'Nombre Jugador', 'Juegos Ganados', 'Estado'];
+    headers.forEach(headerText => {
+        const headerCell = document.createElement('th');
+        headerCell.textContent = headerText;
+        headerRow.appendChild(headerCell);
+    });
 
-        jugadores.forEach(jugador => {
-            const row = table.insertRow();
-            row.insertCell().textContent = jugador.id;
-            row.insertCell().textContent = jugador.nombre;
-            row.insertCell().textContent = jugador.juegosGanados;
-            row.insertCell().textContent = jugador.estado === 'ganador' ? 'Ganador' : 'Perdedor';
-        });
+    jugadores.forEach(jugador => {
+        const row = table.insertRow();
+        row.insertCell().textContent = jugador.id;
+        row.insertCell().textContent = jugador.nombre;
+        row.insertCell().textContent = jugador.juegosGanados;
+        row.insertCell().textContent = jugador.estado === 'ganador' ? 'Ganador' : 'Perdedor';
 
-        resultadoPartidoContainer.innerHTML = '';
-        resultadoPartidoContainer.appendChild(table);
-    }
+        if (jugador.estado === 'ganador') {
+            row.classList.add('ganador'); // Agregar la clase 'ganador' a la fila del jugador ganador
+        }
+    });
+
+    resultadoPartidoContainer.innerHTML = '';
+    resultadoPartidoContainer.appendChild(table);
+}
 
     function actualizarCamposResultadoSets() {
         const setsJugados = parseInt(setsJugadosSelect.value);
@@ -250,7 +240,10 @@
 
     // Llamar a la función inicialmente para generar los campos según el valor del select si ya hay datos
     actualizarCamposResultadoSets();
+    
 </script>
+
+
 
 
 
