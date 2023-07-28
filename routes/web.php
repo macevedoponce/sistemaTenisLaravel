@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PartidoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +39,7 @@ Route::resource('participantes', App\Http\Controllers\ParticipanteController::cl
 Route::resource('inscritos', App\Http\Controllers\InscritoController::class);
 Route::resource('partidos', App\Http\Controllers\PartidoController::class);
 Route::resource('resultados', App\Http\Controllers\ResultadoController::class);
+Route::get('/get-players', [PartidoController::class, 'getPlayers'])->name('get-players');
+
+
 

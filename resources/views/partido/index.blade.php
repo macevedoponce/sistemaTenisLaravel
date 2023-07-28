@@ -39,8 +39,6 @@
 										<th>Nombrepartido</th>
 										<th>Campeonato Id</th>
 										<th>Categoria Id</th>
-										<th>Jugador1 Id</th>
-										<th>Jugador2 Id</th>
 										<th>Fecha Partido</th>
 										<th>Hora Partido</th>
 										<th>Cancha</th>
@@ -54,10 +52,8 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $partido->nombrePartido }}</td>
-											<td>{{ $partido->campeonato_id }}</td>
-											<td>{{ $partido->categoria_id }}</td>
-											<td>{{ $partido->jugador1_id }}</td>
-											<td>{{ $partido->jugador2_id }}</td>
+											<td>{{ $partido->campeonato->nombreCampeonato }}</td>
+											<td>{{ $partido->categoria->nombreCategoria }}</td>
 											<td>{{ $partido->fecha_partido }}</td>
 											<td>{{ $partido->hora_partido }}</td>
 											<td>{{ $partido->cancha }}</td>

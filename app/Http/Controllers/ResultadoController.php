@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Inscrito;
+use App\Models\Partido;
 use App\Models\Resultado;
 use Illuminate\Http\Request;
 
@@ -32,7 +34,10 @@ class ResultadoController extends Controller
     public function create()
     {
         $resultado = new Resultado();
-        return view('resultado.create', compact('resultado'));
+        //$partidos = Partido::pluck('nombrePartido','jugador1_id','jugador2_id','id');
+        $partidos = Partido::get();
+        $inscritos = Inscrito::pluck('nombre_equipo','id');
+        return view('resultado.create', compact('resultado','partidos','inscritos'));
     }
 
     /**

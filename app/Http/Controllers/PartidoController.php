@@ -114,4 +114,17 @@ class PartidoController extends Controller
         return redirect()->route('partidos.index')
             ->with('success', 'Partido deleted successfully');
     }
+
+    public function getPlayers(Request $request)
+    {
+        $campeonatoId = $request->input('campeonato_id');
+        $categoriaId = $request->input('categoria_id');
+
+        $inscritos = Inscrito::where('campeonato_id', $campeonatoId)
+            ->where('categoria_id', $categoriaId)
+            ->pluck('nombre_equipo', 'id')
+            ->toArray();
+
+        return response()->json($inscritos);
+    }
 }
